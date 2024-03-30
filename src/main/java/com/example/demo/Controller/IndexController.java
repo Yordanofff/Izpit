@@ -15,4 +15,9 @@ public class IndexController {
     String login() {
         return "login";
     }
+
+    @GetMapping("/info")
+    String userInfo(){
+        return "user_info";
+    }
 }

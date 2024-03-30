@@ -20,13 +20,12 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
-                                .requestMatchers("/", "/about", "/registration", "/icon.jpg").permitAll()
-//                        .requestMatchers("/admin").hasRole("ADMIN")
-                                .requestMatchers("/admin").hasAuthority("ROLE_ADMIN")
-//                        .requestMatchers("/user").hasRole("USER")
-//                                .requestMatchers("/user").hasAuthority("ROLE_USER")
-//                                .requestMatchers("/user_and_admin").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
-                                .anyRequest().authenticated()
+                                // disabling the security while testing....
+                                .anyRequest().permitAll()
+//                                .requestMatchers("/", "/about", "/registration", "/icon.jpg", "/info").permitAll()
+//                                .requestMatchers("/category").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
+//                                .anyRequest().authenticated()
+
                 )
                 .formLogin((form) -> form
                         .loginPage("/login")

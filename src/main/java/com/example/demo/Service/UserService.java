@@ -19,15 +19,20 @@ public class UserService {
 
 
     public String addUser(UserRequestDto UserRequestDto, BindingResult bindingResult, Model model){
-        if (bindingResult.hasErrors()) {
+        System.out.println(bindingResult.hasErrors());
+        if (bindingResult.hasErrors() || !UserRequestDto.getPassword().equals(UserRequestDto.getRepeatPassword())) {
+            model.addAttribute("passwordMessage", !UserRequestDto.getPassword().equals(UserRequestDto.getRepeatPassword()) ? "Паролите не съвпадат!" : "");
             return "/registration";
         }
-        if (!UserRequestDto.getPassword().equals(UserRequestDto.getRepeatPassword())) {
-            model.addAttribute("password_error", "Паролите не съвпадат!");
-            return "/registration";
-        }
+//        if (bindingResult.hasErrors()) {
+//            return "/registration";
+//        }
+//        if (!UserRequestDto.getPassword().equals(UserRequestDto.getRepeatPassword())) {
+//            model.addAttribute("password_error", "Паролите не съвпадат!");
+//            return "/registration";
+//        }
         User user = UserMapper.toEntity(UserRequestDto);
-        user.setPassword(encoder.passwordEncoder().encode(user.getPassword()));
+        user.setPassword(encoder.passwordEncoder().encode(UserRequestDto.getPassword()));
         user.setEnabled(true);
 //        user.setRole(Role.ROLE_USER);
         user.setRole("ROLE_USER");

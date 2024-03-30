@@ -11,39 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-//@Service
-//@RequiredArgsConstructor
-//public class UserDetailsServiceImpl implements UserDetailsService {
-//
-//    private UserRepository userRepository;
-//
-//    @Override
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        return loadUserByEmail(username);
-//    }
-//
-//
-//    private UserDetails loadUserByName(String username) throws UsernameNotFoundException{
-//        Optional<User> optionalUser = userRepository.findByUsername(username);
-//        if (optionalUser.isEmpty()) {
-//            throw new UsernameNotFoundException("Could not find user");
-//        }
-//
-//        return new MyUserDetails(optionalUser.get());
-//    }
-//
-//
-//    private UserDetails loadUserByEmail(String email) throws UsernameNotFoundException {
-//
-//        Optional <User> optionalUser = userRepository.findByEmail(email);
-//        if (optionalUser.isEmpty()) {
-//            throw new UsernameNotFoundException("Could not find user");
-//        }
-//
-//
-//        return new MyUserDetails(optionalUser.get());
-//    }
-//}
 
 public class UserDetailsServiceImpl implements UserDetailsService {
 
@@ -52,7 +19,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return loadUserByEmail(username);
+        return loadUserByName(username);
     }
 
 
@@ -66,14 +33,4 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return new MyUserDetails(user);
     }
 
-
-    private UserDetails loadUserByEmail(String email) throws UsernameNotFoundException {
-        User user = userRepository.getUserByEmail(email);
-
-        if (user == null) {
-            throw new UsernameNotFoundException("Could not find user");
-        }
-
-        return new MyUserDetails(user);
-    }
 }
